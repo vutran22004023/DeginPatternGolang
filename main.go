@@ -56,6 +56,19 @@ func newShip() iTransport {
 	}
 }
 
+type truck1 struct {
+	transport
+}
+
+func newTruck1() iTransport {
+	return &truck1{
+		transport: transport{
+			name:  "Truck1",
+			power: 5,
+		},
+	}
+}
+
 func getTransport(transportType string) (iTransport, error) {
 	if transportType == "truck" {
 		return newTruck(), nil
@@ -63,14 +76,19 @@ func getTransport(transportType string) (iTransport, error) {
 	if transportType == "ship" {
 		return newShip(), nil
 	}
+	if transportType == "truck1" {
+		return newTruck1(), nil
+	}
 	return nil, fmt.Errorf("Wrong transport type")
 }
 
 func main() {
 	truck, _ := getTransport("truck")
 	ship, _ := getTransport("ship")
+	truck1, _ := getTransport("truck1")
 	printDetail(truck)
 	printDetail(ship)
+	printDetail(truck1)
 }
 
 func printDetail(g iTransport) {
